@@ -12,8 +12,9 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            List(tasks) { task in
-                TaskView(task: task)
+            // To pass on tasks into a binding put the $ symbol front of it to make it a tunnel to update the tasks state variable.
+            List($tasks) { $task in
+                TaskView(task: $task)
             }
         }
         .padding()

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TaskView: View {
-    // By making the task propery a state variable the task now becomes mutable for this view and this view can respond to it.
-    @State var task: Task
+    // By keeping task as a State variable only the variable in this view is updated. In order to update it in the list of the content view, turn it into a binding property wrapper. It will function as a conduit straight to the tasks state propery in ContentView.
+    @Binding var task: Task
     
     var body: some View {
         HStack {
@@ -18,7 +18,7 @@ struct TaskView: View {
             Spacer()
             Image(systemName: task.completed ? "checkmark.circle.fill" : "circle")
                 .onTapGesture {
-                    // We need to update the onTapGesture to point to the completed property in the task. So the state variable task get's updated.
+                    // We need to update the onTapGesture to point to the completed property in the task. This way the binding will pass on the update the State variable in content view.
                     self.task.completed.toggle()
                 }
         }
@@ -27,5 +27,5 @@ struct TaskView: View {
 }
 
 #Preview {
-    TaskView(task: initialTasks[1])
+    TaskView(task: .constant(initialTasks[1]))
 }
