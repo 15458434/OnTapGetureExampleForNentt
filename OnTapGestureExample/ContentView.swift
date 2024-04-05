@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var tasks: [Task]
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            List(tasks) { task in
+                TaskView(task: task, completed: task.completed)
+            }
         }
         .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(tasks: initialTasks)
 }
