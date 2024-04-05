@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             List(tasks) { task in
-                TaskView(task: task, completed: task.completed)
+                TaskView(task: task)
             }
         }
         .padding()

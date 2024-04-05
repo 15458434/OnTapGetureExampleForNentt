@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct TaskView: View {
-    // structs are a value reference and behave like copy on write. So if a property in a struct changes a new struct is created in memory.
-    var task: Task
-    // State variables are variables are wrapped in a propertywrapper. The property wrapper leverages the copy on write behaviour from the struct and triggers view updates.
-    @State var completed: Bool
+    // By making the task propery a state variable the task now becomes mutable for this view and this view can respond to it.
+    @State var task: Task
     
     var body: some View {
         HStack {
@@ -20,9 +18,8 @@ struct TaskView: View {
             Spacer()
             Image(systemName: task.completed ? "checkmark.circle.fill" : "circle")
                 .onTapGesture {
-                    // But toggling the completed state variable you mutate only the completed state variable. 
-                    // However in the current state toggling the completed image isn't working. This is because the view update isn't responding to the value in the completed variable.
-                    self.completed.toggle()
+                    // We need to update the onTapGesture to point to the completed property in the task. So the state variable task get's updated.
+                    self.task.completed.toggle()
                 }
         }
         .padding(.horizontal)
@@ -30,5 +27,5 @@ struct TaskView: View {
 }
 
 #Preview {
-    TaskView(task: initialTasks[1], completed: false)
+    TaskView(task: initialTasks[1])
 }
